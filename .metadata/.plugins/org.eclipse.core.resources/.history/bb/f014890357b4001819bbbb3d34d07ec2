@@ -1,0 +1,7 @@
+package com.gyanda.oAuth2.constants;
+
+public final class WebServiceConstants {
+	public static final String SUCCESS = "Sussess";
+	public static final String FAIL = "FAIL";	
+	
+}

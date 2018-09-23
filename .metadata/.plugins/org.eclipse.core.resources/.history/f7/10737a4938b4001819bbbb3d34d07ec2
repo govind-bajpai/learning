@@ -1,0 +1,5 @@
+package com.gyanda.oAuth2.services;
+
+public interface UserService {
+
+}

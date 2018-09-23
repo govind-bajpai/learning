@@ -1,0 +1,86 @@
+package com.gyanda.oAuth2.daoImpls;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.gyanda.oAuth2.daos.UserDAO;
+import com.gyanda.oAuth2.models.Person;
+import com.gyanda.oAuth2.models.User;
+
+public class UserDAOImpl implements UserDAO {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+
+	private SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sf){
+		this.sessionFactory = sf;
+	}
+
+	
+	@Override
+	public void addUser(User user) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(user);
+		logger.info("User saved successfully, User Details="+user);
+	}
+
+	@Override
+	public void updateUsers(User user) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(user);
+		logger.info("User saved successfully, User Details="+user);
+	}
+
+	@Override
+	public List<User> listUsers() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<User> userList = session.createQuery("from User").list();
+		for(User user : userList){
+			logger.info("User List::"+user);
+		}
+		return userList;
+	
+	}
+
+	@Override
+	public Person getUserById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeUser(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public User findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> findUserByLastName(String lastName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByUserNameAndPassword(String userName, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByEmailAndPassword(String email, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

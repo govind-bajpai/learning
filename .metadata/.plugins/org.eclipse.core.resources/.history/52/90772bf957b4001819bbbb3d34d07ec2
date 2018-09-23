@@ -1,0 +1,122 @@
+package com.gyanda.oAuth2.daoImpls;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+import com.gyanda.oAuth2.constants.UserConstants;
+import com.gyanda.oAuth2.constants.WebServiceConstants;
+import com.gyanda.oAuth2.daos.UserDAO;
+import com.gyanda.oAuth2.models.User;
+import com.gyanda.oAuth2.serviceController.UserResponse;
+
+@Repository
+public class UserDAOImpl implements UserDAO {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sf) {
+		this.sessionFactory = sf;
+	}
+
+	@Override
+	public UserResponse addUser(User user) {
+		Session session = this.sessionFactory.getCurrentSession();
+		UserResponse userResponse = new UserResponse();
+		if (user.getEmail() == null) {
+			userResponse.setStatus(WebServiceConstants.FAIL);
+			userResponse.setMessage(UserConstants.EMAIL_EMPTY);
+		}
+		List<User> userList = (List<User>) session.createQuery("from User Where email =" + user.getEmail());
+		
+		
+		try {
+
+			if (userList.size() > 0) {
+				userResponse.setStatus(WebServiceConstants.FAIL);
+				userResponse.setMessage(UserConstants.EMAIL_ALREDY_EXISTS);
+			} else {
+				if (user.getEmail() != null) {
+					
+					session.persist(user);
+				}
+			}
+			logger.info("User saved successfully, User Details=" + user);
+			return userResponse;
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e.getStackTrace());
+			userResponse.setStatus(WebServiceConstants.FAIL);
+			userResponse.setMessage(WebServiceConstants.WEB_SERVICE_ERROR_MESSAGE);
+			return userResponse;
+		}
+	}
+
+	@Override
+	public void updateUser(User user) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(user);
+		logger.info("User saved successfully, User Details=" + user);
+	}
+
+	@Override
+	public List<User> listUsers() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<User> userList = session.createQuery("from User").list();
+		for (User user : userList) {
+			logger.info("User List::" + user);
+		}
+		return userList;
+
+	}
+
+	@Override
+	public User getUserById(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		User user = (User) session.load(User.class, new Integer(id));
+		logger.info("User loaded successfully, User details=" + user);
+		return user;
+	}
+
+	@Override
+	public void removeUser(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		User user = (User) session.load(User.class, new Integer(id));
+		if (null != user) {
+			session.delete(user);
+		}
+		logger.info("User deleted successfully, person details=" + user);
+
+	}
+
+	@Override
+	public User findUserByEmail(String email) {
+		Session session = this.sessionFactory.getCurrentSession();
+		User user = (User) session.load(User.class, new String(email));
+		return user;
+	}
+
+	@Override
+	public List<User> findUserByLastName(String lastName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByUserNameAndPassword(String userName, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByEmailAndPassword(String email, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

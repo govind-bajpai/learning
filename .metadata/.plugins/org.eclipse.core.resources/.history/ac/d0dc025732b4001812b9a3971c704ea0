@@ -1,0 +1,5 @@
+package com.gyanda.oAuth2.daos;
+
+public class UserDAO {
+
+}

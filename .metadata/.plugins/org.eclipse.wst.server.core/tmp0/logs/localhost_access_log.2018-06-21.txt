@@ -1,0 +1,17 @@
+127.0.0.1 - - [21/Jun/2018:23:06:46 +0530] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:06:47 +0530] "GET /oAuth2/ HTTP/1.1" 404 1008
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:06:55 +0530] "GET /oAuth2/hello/index HTTP/1.1" 404 1030
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:06:58 +0530] "GET /oAuth2/hello/index HTTP/1.1" 404 1030
+127.0.0.1 - - [21/Jun/2018:23:27:20 +0530] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:27:21 +0530] "GET /HelloMavenSpringWebMVC/ HTTP/1.1" 404 1040
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:28:27 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:28:28 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:28:28 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+127.0.0.1 - - [21/Jun/2018:23:40:42 +0530] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:40:42 +0530] "GET /HelloMavenSpringWebMVC/ HTTP/1.1" 404 1040
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:41:29 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:41:30 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:41:30 +0530] "GET /HelloMavenSpringWebMVC/hello/index HTTP/1.1" 404 1062
+127.0.0.1 - - [21/Jun/2018:23:44:43 +0530] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:44:43 +0530] "GET /HelloMavenSpringWebMVC/ HTTP/1.1" 404 1040
+0:0:0:0:0:0:0:1 - - [21/Jun/2018:23:45:13 +0530] "GET /HelloSpringMVCWebApp/ HTTP/1.1" 200 304

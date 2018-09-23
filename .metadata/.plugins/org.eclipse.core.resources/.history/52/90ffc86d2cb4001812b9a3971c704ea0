@@ -1,0 +1,10 @@
+package com.gyanda.oAuth2.repository;
+
+public interface UserRepository extends CrudRepository<Employee, Long> {
+
+		  Employee findByFirstName(String firstName);
+
+		  List<Employee> findByLastName(String lastName);
+		}
+
+}

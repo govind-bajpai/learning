@@ -1,0 +1,42 @@
+package com.gyanda.oAuth2.services;
+
+import java.util.List;
+
+import com.gyanda.oAuth2.daos.UserDAO;
+import com.gyanda.oAuth2.models.User;
+
+public class UserServiceImpl implements UserService {
+	
+	UserDAO userDAO;
+
+	@Override
+	public void addUser(User p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUser(User p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<User> listUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUserById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeUser(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

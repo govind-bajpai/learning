@@ -1,0 +1,82 @@
+package com.gyanda.oAuth2.serviceController;
+
+import java.io.FileOutputStream;
+import java.util.Base64;
+import java.util.List;
+
+import org.hibernate.loader.custom.Return;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gyanda.oAuth2.constants.UserConstants;
+import com.gyanda.oAuth2.constants.WebServiceConstants;
+import com.gyanda.oAuth2.models.User;
+import com.gyanda.oAuth2.models.UserProfile;
+import com.gyanda.oAuth2.services.UserService;
+
+import javassist.ClassPath;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+	private UserService userService;
+
+	@Autowired(required = true)
+	@Qualifier(value = "userService")
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> listUsers() {
+		return this.userService.listUsers();
+	}
+
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public UserResponse addUsers(@RequestBody User user) {
+		return this.userService.addUser(user);
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public List<User> login(@RequestBody User user) {
+		this.userService.addUser(user);
+		return this.userService.listUsers();
+	}
+
+	@RequestMapping(value="/uploadProfilePic",method = RequestMethod.POST)
+    public @ResponseBody String uploadProfilePic(@RequestBody UserProfile profile)
+    {
+        try
+        {
+        	if(StringUtils.isEmpty(profile.getUserId()) || StringUtils.isEmpty(profile.getProfilePic())){
+        		UserResponse response = new UserResponse();
+        		response.setStatus(UserConstants.EMAIL_ALREDY_EXISTS);
+        		return "fail";
+        	}
+        	else {
+            byte[] imageByte=Base64.getDecoder().decode(profile.getProfilePic().getBytes());
+            String directory= getClass().getResource()+profile.getUserId()+".png"; 
+            new FileOutputStream(directory).write(imageByte);
+            return "success ";
+        	}
+        }
+        catch(Exception e)
+        {
+            return "error = "+e.getMessage();
+        }
+
+    }
+
+}
